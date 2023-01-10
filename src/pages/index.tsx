@@ -9,7 +9,7 @@ const Home: NextPage = () => {
         <meta name="description" content="ERP de Inpieles SAS" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex h-full grow bg-white">
+      <main className="flex h-full grow">
         <div>
           <p>Empleados</p>
         </div>

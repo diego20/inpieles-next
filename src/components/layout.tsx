@@ -6,7 +6,7 @@ interface Props {
 }
 
 const Layout = ({ children }: Props) => (
-  <div className="flex flex-col md:flex-row">
+  <div className="flex flex-col bg-white transition-colors dark:bg-gray-700 md:flex-row">
     <Sidenav />
     <div className="flex w-full flex-col overflow-y-auto">
       <Header />

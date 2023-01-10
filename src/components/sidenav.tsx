@@ -24,9 +24,9 @@ const Sidenav = () => {
 
   return (
     <nav
-      className={`z-2 relative flex flex-wrap items-center justify-between bg-white p-3 md:h-screen ${
+      className={`z-2 relative flex flex-wrap items-center justify-between p-3 md:h-screen ${
         isSidebarMinimized ? "md:w-20" : "md:w-56"
-      } border-r border-r-gray-200 transition-all duration-500 md:sticky md:left-0 md:top-0 md:bottom-0 md:flex-nowrap md:px-5 md:py-6`}
+      } border-r border-r-gray-200 transition-all duration-500 dark:border-gray-800 md:sticky md:left-0 md:top-0 md:bottom-0 md:flex-nowrap md:px-5 md:py-6`}
     >
       <div className="relative mx-auto flex w-full items-center justify-between md:min-h-full md:flex-col md:items-stretch">
         {/* Button - mobile*/}
