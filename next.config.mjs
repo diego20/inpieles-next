@@ -13,5 +13,10 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  modularizeImports: {
+    "@heroicons/react/24/outline": {
+      transform: "@heroicons/react/24/outline/{{member}}",
+    },
+  },
 };
 export default config;
