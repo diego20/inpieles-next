@@ -10,9 +10,8 @@ import {
   ChevronDoubleLeftIcon,
 } from "@heroicons/react/24/outline";
 import SidebarItem from "./sidebarItem";
-import { useRouter } from "next/router";
 
-const Sidenav = () => {
+const Sidebar = () => {
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
 
   const setSidebarMinimized = () => {
@@ -20,7 +19,6 @@ const Sidenav = () => {
   };
 
   const [collapseShow, setCollapseShow] = useState("hidden");
-  const { asPath } = useRouter();
 
   return (
     <nav
@@ -40,12 +38,15 @@ const Sidenav = () => {
         {/* Logo */}
         <Link className="flex w-full pl-4 md:mb-10 md:h-8 md:p-0" href="/">
           <div
-            className={`flex overflow-x-hidden transition-all ${
+            className={`flex  overflow-x-hidden transition-all ${
               isSidebarMinimized ? "ml-0 w-10" : "w-full"
             } `}
           >
             <div className="w-48 flex-shrink-0">
-              <InpielesLogo colorClass="" customClasses="max-h-8" />
+              <InpielesLogo
+                colorClass="fill-current text-gray-900"
+                customClasses="max-h-8"
+              />
             </div>
           </div>
         </Link>
@@ -67,7 +68,6 @@ const Sidenav = () => {
           </div>
           <div className={`mb-11`}>
             <SidebarItem
-              urlLocation={asPath}
               redirectRoute="/"
               itemText="Dashboard"
               isSidebarMinimized={isSidebarMinimized}
@@ -81,8 +81,7 @@ const Sidenav = () => {
             <ul className="flex list-none flex-col gap-1 md:min-w-full ">
               <li>
                 <SidebarItem
-                  urlLocation={asPath}
-                  redirectRoute="/admin/empleados"
+                  redirectRoute="/empleados"
                   itemText="Empleados"
                   isSidebarMinimized={isSidebarMinimized}
                 >
@@ -91,8 +90,7 @@ const Sidenav = () => {
               </li>
               <li>
                 <SidebarItem
-                  urlLocation={asPath}
-                  redirectRoute="/admin/produccion"
+                  redirectRoute="/produccion"
                   itemText="Producción"
                   isSidebarMinimized={isSidebarMinimized}
                 >
@@ -114,4 +112,4 @@ const Sidenav = () => {
   );
 };
 
-export default Sidenav;
+export default Sidebar;

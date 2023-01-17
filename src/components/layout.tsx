@@ -1,5 +1,5 @@
 import Header from "./header";
-import Sidenav from "./sidenav";
+import Sidebar from "./sidebar";
 
 interface Props {
   children: React.ReactNode;
@@ -7,10 +7,10 @@ interface Props {
 
 const Layout = ({ children }: Props) => (
   <div className="flex flex-col bg-white transition-colors dark:bg-gray-700 md:flex-row">
-    <Sidenav />
+    <Sidebar />
     <div className="flex w-full flex-col overflow-y-auto">
       <Header />
-      {children}
+      <main className="mx-4 h-full grow pt-4">{children}</main>
     </div>
   </div>
 );

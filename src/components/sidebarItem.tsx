@@ -1,7 +1,7 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 type Props = {
-  urlLocation: string;
   redirectRoute: string;
   itemText: string;
   children: React.ReactNode;
@@ -10,7 +10,6 @@ type Props = {
 
 /**
  * Componente de un item del sidebar.
- * @param urlLocation Ubicación actual del usuario en la página
  * @param redirectRoute Ruta a la que redirigir
  * @param itemText Texto que llevará el item
  * @param children Ícono que acompañará el item
@@ -18,18 +17,18 @@ type Props = {
  * @returns Retorna un componente de React para ser renderizado
  */
 function SidebarItem({
-  urlLocation,
   redirectRoute,
   itemText,
   children,
   isSidebarMinimized,
 }: Props) {
+  const router = useRouter();
   return (
     <div
-      className={`rounded-md text-gray-600 ${
-        urlLocation.includes(redirectRoute)
-          ? "bg-gray-200 text-gray-800"
-          : "hover:bg-gray-100"
+      className={`rounded-md text-gray-600 dark:text-white ${
+        router.pathname === redirectRoute
+          ? "bg-gray-200 text-gray-800 dark:bg-gray-600"
+          : "hover:bg-gray-100 dark:hover:bg-gray-600"
       }`}
     >
       <Link
