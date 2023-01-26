@@ -23,19 +23,33 @@ function SidebarItem({
   isSidebarMinimized,
 }: Props) {
   const router = useRouter();
+
+  const getShouldBeHighlighted = () => {
+    if (router.pathname === "/") return router.pathname === redirectRoute;
+    else if (redirectRoute.length > 1)
+      return router.pathname.includes(redirectRoute);
+  };
+
+  const shouldBeHighlighted = getShouldBeHighlighted();
   return (
     <div
-      className={`rounded-md text-gray-600 dark:text-white ${
-        router.pathname === redirectRoute
-          ? "bg-gray-200 text-gray-800 dark:bg-gray-600"
-          : "hover:bg-gray-100 dark:hover:bg-gray-600"
+      className={`rounded-md dark:text-white ${
+        shouldBeHighlighted
+          ? "bg-gray-100 text-gray-600 dark:bg-gray-600"
+          : "text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-600"
       }`}
     >
       <Link
-        className={`relative ml-0 inline-flex items-center gap-3 py-3 pl-2 pr-3 text-sm font-bold`}
+        className={`relative ml-0 inline-flex w-full items-center gap-3 py-3 pl-2 pr-3 text-sm font-bold`}
         href={redirectRoute}
       >
-        <div className="w-6 flex-shrink-0">{children}</div>
+        <div
+          className={`w-6 flex-shrink-0 ${
+            shouldBeHighlighted ? "text-blue-500" : ""
+          }`}
+        >
+          {children}
+        </div>
         <span
           className={`transition-opacity ${
             isSidebarMinimized ? "opacity-0" : "opacity-100"

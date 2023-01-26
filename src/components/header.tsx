@@ -6,7 +6,7 @@ const Header = () => {
   const { theme, setTheme } = useTheme();
   const router = useRouter();
   return (
-    <header className="mx-4 mb-4 flex h-16 items-center justify-between border-b border-b-gray-200 dark:border-b-gray-800">
+    <header className="mb-4 flex h-16 items-center justify-between border-b border-b-gray-200 dark:border-b-gray-800">
       {router.pathname !== "/" ? (
         <button
           className="flex items-center gap-2 rounded p-2 hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-600 dark:hover:text-white"
@@ -19,10 +19,10 @@ const Header = () => {
         <span></span>
       )}
       <button
-        className="rounded p-2 hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-600 dark:hover:text-white"
+        className="rounded bg-blue-50 p-2 hover:bg-gray-100 hover:text-gray-800 dark:bg-inherit dark:hover:bg-gray-600 dark:hover:text-white"
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       >
-        <SunIcon className="w-6" />
+        <SunIcon className="w-6 text-blue-500" />
       </button>
     </header>
   );

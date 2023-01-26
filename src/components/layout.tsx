@@ -6,11 +6,11 @@ interface Props {
 }
 
 const Layout = ({ children }: Props) => (
-  <div className="flex flex-col bg-white transition-colors dark:bg-gray-700 md:flex-row">
+  <div className="flex flex-col bg-white transition-colors dark:bg-gray-900 md:flex-row">
     <Sidebar />
-    <div className="flex w-full flex-col overflow-y-auto">
+    <div className="flex min-h-screen w-full flex-col overflow-y-auto px-6">
       <Header />
-      <main className="mx-4 h-full grow pt-4">{children}</main>
+      <main className="h-full grow pt-4">{children}</main>
     </div>
   </div>
 );

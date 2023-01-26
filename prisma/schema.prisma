@@ -2,57 +2,60 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "mysql"
-    url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 enum EstadoEmpleado {
-    ACTIVO
-    DESPEDIDO
-    RENUNCIADO
-    AUSENTE
+  ACTIVO
+  DESPEDIDO
+  RENUNCIADO
+  AUSENTE
 }
 
 model Empleado {
-    idEmpleado       String         @id @default(cuid())
-    createdAt        DateTime       @default(now())
-    updatedAt        DateTime       @updatedAt
-    nombres          String
-    apellidos        String
-    fechaNacimiento  DateTime
-    fechaIngreso     DateTime
-    fechaSalida      DateTime?
-    celular          String
-    telefonoReferido String
-    telefonoCasa     String?
-    direccion        String
-    eps              String
-    produccion       Produccion[]
-    estado           EstadoEmpleado
+  idEmpleado       String         @id @default(cuid())
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  nombres          String
+  apellidos        String
+  cedula           String         @db.VarChar(10)
+  email            String         @unique
+  fechaNacimiento  DateTime
+  fechaIngreso     DateTime
+  fechaSalida      DateTime?
+  celular          String
+  telefonoReferido String
+  telefonoCasa     String?
+  direccion        String
+  eps              String
+  produccion       Produccion[]
+  estado           EstadoEmpleado
 }
 
 model Produccion {
-    idProduccion     String   @id @default(cuid())
-    fecha            DateTime
-    cantidad         Int?
-    loteMateriaPrima DateTime
-    empleado         Empleado @relation(fields: [empleadoId], references: [idEmpleado])
-    empleadoId       String
-    producto         Producto @relation(fields: [productoId], references: [idProducto])
-    productoId       String
+  idProduccion     String   @id @default(cuid())
+  fecha            DateTime
+  cantidad         Int?
+  loteMateriaPrima DateTime
+  empleado         Empleado @relation(fields: [empleadoId], references: [idEmpleado])
+  empleadoId       String
+  producto         Producto @relation(fields: [productoId], references: [idProducto])
+  productoId       String
 }
 
 model Producto {
-    idProducto          String       @id @default(cuid())
-    createdAt           DateTime     @default(now())
-    updatedAt           DateTime     @updatedAt
-    nombre              String       @unique
-    puntos              Int?
-    peso                String?
-    tamano              String
-    ProduccionesDiarias Produccion[]
+  idProducto          String       @id @default(cuid())
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+  nombre              String       @unique
+  puntos              Int?
+  peso                String?
+  tamano              String
+  ProduccionesDiarias Produccion[]
 }
