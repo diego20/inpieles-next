@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
+import { createTRPCRouter, publicProcedure } from "../trpc";
 
 const EstadoEnum = ["ACTIVO", "DESPEDIDO", "RENUNCIADO", "AUSENTE"] as const;
 

@@ -14,11 +14,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <ThemeProvider attribute="class">
-      <SessionProvider session={session}>
-        <Layout {...pageProps}>
-          <Component {...pageProps} />
-        </Layout>
-      </SessionProvider>
+      {/* <SessionProvider session={session}> */}
+      <Layout {...pageProps}>
+        <Component {...pageProps} />
+      </Layout>
+      {/* </SessionProvider> */}
     </ThemeProvider>
   );
 };

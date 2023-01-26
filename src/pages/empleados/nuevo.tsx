@@ -1,6 +1,6 @@
 import { CheckCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { api } from "../../utils/api";
@@ -17,12 +17,6 @@ type Inputs = {
   direccion: string;
   eps: string;
   estado: "ACTIVO" | "DESPEDIDO" | "RENUNCIADO" | "AUSENTE";
-};
-
-const simularEnvio = (text: string) => {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(`Este es mi ${text}`), 500);
-  });
 };
 
 const NuevoEmpleado = () => {
@@ -46,9 +40,6 @@ const NuevoEmpleado = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     // Enviar info exitosa al back
     try {
-      // const res = await simularEnvio(data.nombres);
-      // console.log(res);
-      setIsModalOpen(true);
       console.log("mutado");
       const mutado = {
         ...data,
@@ -56,7 +47,14 @@ const NuevoEmpleado = () => {
         cedula: data.cedula.toString(),
         telefonoReferido: data.telefonoReferido.toString(),
       };
-      mutation.mutate(mutado);
+      mutation.mutate(mutado, {
+        onSuccess() {
+          setIsModalOpen(true);
+        },
+        onError(error) {
+          console.log("Error trayendo data", error.message);
+        },
+      });
     } catch (e: any) {
       throw new Error("Algo está muy mal", e);
     }
