@@ -10,9 +10,9 @@ type Inputs = {
   apellidos: string;
   email: string;
   cedula: number | string;
-  fechaNacimiento: Date;
+  fechaNacimiento: string;
   celular: number | string;
-  fechaIngreso: Date;
+  fechaIngreso: string;
   telefonoReferido: number | string;
   direccion: string;
   eps: string;
@@ -26,7 +26,7 @@ const Empleado = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitted },
+    formState: { errors },
   } = useForm<Inputs>({ mode: "onBlur" });
 
   const { data, isLoading } = api.empleados.getbyCedula.useQuery(
