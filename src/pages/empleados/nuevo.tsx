@@ -10,9 +10,9 @@ type Inputs = {
   apellidos: string;
   email: string;
   cedula: number;
-  fechaNacimiento: Date;
+  fechaNacimiento: string;
   celular: number;
-  fechaIngreso: Date;
+  fechaIngreso: string;
   telefonoReferido: number;
   direccion: string;
   eps: string;
@@ -23,8 +23,7 @@ const NuevoEmpleado = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitted },
-    reset,
+    formState: { errors },
   } = useForm<Inputs>({ mode: "onBlur" });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
