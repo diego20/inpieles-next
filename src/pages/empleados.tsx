@@ -5,7 +5,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Empleados: NextPage = () => {
-  const empleados = api.empleados.getAll.useQuery();
+  const empleados = api.empleados.getAll.useQuery(undefined, {
+    refetchOnMount: "always",
+    staleTime: Infinity,
+  });
   const [filteredEmployees, setFilteredEmployees] = useState(empleados.data);
 
   useEffect(() => {

@@ -47,6 +47,9 @@ model Produccion {
   empleadoId       String
   producto         Producto @relation(fields: [productoId], references: [idProducto])
   productoId       String
+
+  @@index([empleadoId])
+  @@index([productoId])
 }
 
 model Producto {

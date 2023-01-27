@@ -50,11 +50,11 @@ export const employeesRouter = createTRPCRouter({
       });
     }),
 
-  removeEmployee: publicProcedure
-    .input(EmpleadoDTO)
+  removeByCedula: publicProcedure
+    .input(z.string())
     .mutation(({ ctx, input }) => {
       return ctx.prisma.empleado.delete({
-        where: { email: input.email },
+        where: { email: input },
       });
     }),
 });
