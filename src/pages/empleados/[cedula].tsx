@@ -64,6 +64,8 @@ const Empleado = () => {
         celular: data.celular.toString(),
         cedula: data.cedula.toString(),
         telefonoReferido: data.telefonoReferido.toString(),
+        fechaNacimiento: new Date(data.fechaNacimiento),
+        fechaIngreso: new Date(data.fechaIngreso),
       };
       updateMutation.mutate(mutado, {
         onSuccess() {

@@ -10,9 +10,9 @@ type Inputs = {
   apellidos: string;
   email: string;
   cedula: number;
-  fechaNacimiento: string;
+  fechaNacimiento: Date;
   celular: number;
-  fechaIngreso: string;
+  fechaIngreso: Date;
   telefonoReferido: number;
   direccion: string;
   eps: string;

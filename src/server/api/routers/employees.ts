@@ -7,8 +7,8 @@ const EstadoEnum = ["ACTIVO", "DESPEDIDO", "RENUNCIADO", "AUSENTE"] as const;
 const EmpleadoDTO = z.object({
   nombres: z.string(),
   apellidos: z.string(),
-  fechaNacimiento: z.string().datetime(),
-  fechaIngreso: z.string().datetime(),
+  fechaNacimiento: z.coerce.date(),
+  fechaIngreso: z.coerce.date(),
   celular: z.coerce.string(),
   email: z.string().email(),
   cedula: z.coerce.string().max(10),
