@@ -1,9 +1,18 @@
-import { CheckCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { api } from "../../utils/api";
+import { Button } from "../../components/reusable-components/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+} from "../../components/reusable-components/modal";
+import { Input } from "../../components/reusable-components/input";
 
 type Inputs = {
   nombres: string;
@@ -55,8 +64,11 @@ const Empleado = () => {
     setIsModalOpen(false);
   };
 
+  /**
+   * Envia info que pasó los checks al backend
+   * @param data Data a enviar al BE
+   */
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    // Enviar info exitosa al back
     try {
       console.log("mutado");
       const mutado = {
@@ -75,8 +87,12 @@ const Empleado = () => {
           console.log("Error trayendo data", error.message);
         },
       });
-    } catch (e: any) {
-      throw new Error("Algo está muy mal", e);
+    } catch (e) {
+      if (typeof e === "string") {
+        throw new Error(`Algo está muy mal, ${e}`);
+      } else if (e instanceof Error) {
+        throw new Error(`Algo está muy mal, ${e.message}`);
+      } else throw new Error("Algo está muy mal, no se definió tipo de error");
     }
   };
 
@@ -96,13 +112,9 @@ const Empleado = () => {
     <div>
       <div className="mb-8 flex justify-between">
         <h1 className="text-3xl">Editar</h1>
-        <button
-          type="button"
-          className="mr-2 mb-2 rounded-lg bg-red-700 px-8 py-2.5 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-          onClick={removeEmployee}
-        >
+        <Button variant={"destructive"} type="button" onClick={removeEmployee}>
           Eliminar empleado
-        </button>
+        </Button>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -114,15 +126,14 @@ const Empleado = () => {
             >
               Nombres
             </label>
-            <input
-              type="text"
+            <Input
+              type={"text"}
               id="nombres"
-              className={`dark:focus:ring-blue-500" block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 ${
+              className={`${
                 errors.nombres
                   ? "border-red-500"
                   : "border-gray-300 dark:border-gray-600"
-              }
-               dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500`}
+              }`}
               {...register("nombres", { required: true })}
             />
             {errors.nombres && (
@@ -138,10 +149,10 @@ const Empleado = () => {
             >
               Apellidos
             </label>
-            <input
-              type="text"
+            <Input
+              type={"text"}
               id="apellidos"
-              className={`block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 ${
+              className={`${
                 errors.apellidos
                   ? "border-red-500"
                   : "border-gray-300 dark:border-gray-600"
@@ -161,10 +172,10 @@ const Empleado = () => {
             >
               Email
             </label>
-            <input
-              type="email"
+            <Input
+              type={"email"}
               id="email"
-              className={`block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 ${
+              className={`${
                 errors.email
                   ? "border-red-500"
                   : "border-gray-300 dark:border-gray-600"
@@ -185,10 +196,10 @@ const Empleado = () => {
             >
               Cédula
             </label>
-            <input
-              type="number"
+            <Input
+              type={"number"}
               id="cedula"
-              className={`block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 ${
+              className={`${
                 errors.cedula
                   ? "border-red-500"
                   : "border-gray-300 dark:border-gray-600"
@@ -218,10 +229,10 @@ const Empleado = () => {
             >
               Fecha nacimiento
             </label>
-            <input
-              type="date"
+            <Input
+              type={"date"}
               id="fechaNacimiento"
-              className={`block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 ${
+              className={`${
                 errors.fechaNacimiento
                   ? "border-red-500"
                   : "border-gray-300 dark:border-gray-600"
@@ -241,10 +252,10 @@ const Empleado = () => {
             >
               Celular
             </label>
-            <input
-              type="number"
+            <Input
+              type={"number"}
               id="celular"
-              className={`block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 ${
+              className={`${
                 errors.celular
                   ? "border-red-500"
                   : "border-gray-300 dark:border-gray-600"
@@ -274,10 +285,10 @@ const Empleado = () => {
             >
               Fecha de ingreso
             </label>
-            <input
-              type="date"
+            <Input
+              type={"date"}
               id="fechaIngreso"
-              className={`block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 ${
+              className={`${
                 errors.fechaIngreso
                   ? "border-red-500"
                   : "border-gray-300 dark:border-gray-600"
@@ -297,14 +308,13 @@ const Empleado = () => {
             >
               Teléfono referido
             </label>
-            <input
-              type="number"
+            <Input
+              type={"number"}
               id="telefonoReferido"
-              className={`block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 ${
+              className={`${
                 errors.telefonoReferido
                   ? "border-red-500"
                   : "border-gray-300 dark:border-gray-600"
-              }
               }`}
               {...register("telefonoReferido", { required: true })}
             />
@@ -321,10 +331,10 @@ const Empleado = () => {
             >
               Dirección residencia
             </label>
-            <input
-              type="text"
+            <Input
+              type={"text"}
               id="direccion"
-              className={`block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 ${
+              className={`${
                 errors.direccion
                   ? "border-red-500"
                   : "border-gray-300 dark:border-gray-600"
@@ -344,10 +354,10 @@ const Empleado = () => {
             >
               EPS
             </label>
-            <input
-              type="text"
+            <Input
+              type={"text"}
               id="eps"
-              className={`block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 ${
+              className={`${
                 errors.eps
                   ? "border-red-500"
                   : "border-gray-300 dark:border-gray-600"
@@ -386,59 +396,39 @@ const Empleado = () => {
             )}
           </div>
         </div>
-        <div className="flex items-center gap-3">
-          <button
-            type="submit"
-            className="w-full rounded-lg bg-blue-700 px-8 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
-          >
+        <div className="mb-4 flex items-center gap-3">
+          <Button type="submit" className="px-8">
             Actualizar
-          </button>
-          <button
-            type="button"
-            className="rounded-lg border border-gray-300 bg-white px-8 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+          </Button>
+          <Button
+            variant={"outline"}
+            type="submit"
+            className="px-8"
             onClick={() => router.back()}
           >
             Regresar
-          </button>
+          </Button>
         </div>
 
-        {isModalOpen && (
-          <div
-            tabIndex={-1}
-            className="fixed top-0 left-0 right-0 bottom-0 z-50 overflow-y-auto overflow-x-hidden bg-gray-500/25 p-4 md:inset-0 md:h-full"
-            onClick={() => resetForm()}
-          >
-            <div
-              className="relative mx-auto h-full w-full max-w-md md:h-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="relative mt-24 rounded-lg bg-white shadow dark:bg-gray-700">
-                <button
-                  type="button"
-                  className="absolute top-3 right-2.5 ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-white"
-                  onClick={resetForm}
-                >
-                  <XMarkIcon className="w-4" />
-                  <span className="sr-only">Close modal</span>
-                </button>
-                <div className="p-6 text-center">
-                  <CheckCircleIcon className="mb-3 inline-block w-16 text-green-700" />
-                  <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                    Se ha modificado al empleado exitosamente
-                  </h3>
-                  <button
-                    data-modal-hide="popup-modal"
-                    type="button"
-                    className="w-full rounded-lg bg-blue-700 px-8 py-3 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
-                    onClick={resetForm}
-                  >
-                    Continuar
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+        {/* Modal */}
+        <Dialog
+          open={isModalOpen}
+          onOpenChange={(modalState) => !modalState && resetForm()}
+        >
+          <DialogContent className="gap-8 sm:max-w-sm">
+            <DialogHeader>
+              <CheckCircleIcon className="m-auto mb-3 inline-block w-16 text-green-700" />
+              <DialogDescription className="text-center">
+                Se ha actualizado al empleado exitosamente
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+              <Button type="button" onClick={resetForm}>
+                Continuar
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </form>
     </div>
   );

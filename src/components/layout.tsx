@@ -10,7 +10,7 @@ const Layout = ({ children }: Props) => (
     <Sidebar />
     <div className="flex min-h-screen w-full flex-col overflow-y-auto px-6">
       <Header />
-      <main className="h-full grow pt-4">{children}</main>
+      <main className="h-full grow py-4">{children}</main>
     </div>
   </div>
 );

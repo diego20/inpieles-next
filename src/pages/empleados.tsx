@@ -3,6 +3,7 @@ import { api } from "../utils/api";
 import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Input } from "../components/reusable-components/input";
 
 const Empleados: NextPage = () => {
   const {
@@ -31,25 +32,19 @@ const Empleados: NextPage = () => {
   return (
     <div className="">
       <h1 className="mb-8 text-3xl">Empleados</h1>
-
       <label htmlFor="table-search" className="sr-only">
         Search
       </label>
-      <div className="relative mb-4 flex justify-between">
-        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-          <MagnifyingGlassIcon className="w-5" />
-        </div>
-        <input
+      <div className="mb-4 flex justify-between">
+        <Input
           onChange={(e) => filterEmployees(e.target.value)}
-          type="text"
+          type="search"
           id="table-search"
-          className="block w-80 rounded-lg border border-gray-300 p-2 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
           placeholder="Buscar por nombre"
-        />
-        <Link
-          href={"/empleados/nuevo"}
-          className="mr-2 inline-flex items-center gap-1 rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
+          icon={<MagnifyingGlassIcon className="w-5" />}
+          className={"w-80"}
+        ></Input>
+        <Link href={"/empleados/nuevo"} className={"icon-and-link-styles"}>
           <PlusIcon className="w-4" />
           Agregar empleado
         </Link>
